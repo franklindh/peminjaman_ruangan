@@ -1,0 +1,82 @@
+.container {
+    display: flex;
+    justify-content: flex-end;
+}
+.container1 {
+    /* padding: 20px 20px 20px 50%; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 30px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+.img {
+    width: 20%;
+    height: 20%;
+    object-fit: cover;
+}
+.form-container {
+    background-color: #fff;
+    margin-top: 40px;
+    margin-right: 20px;
+    padding: 20px;
+    border-radius: 5px;
+    width: 50%;
+    height: 10%;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.form-group textarea {
+    resize: vertical;
+    height: 120px;
+}
+
+.form-group button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.form-group button:hover {
+    background-color: #45a049;
+}
+
+.tombolform {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+thead {
+    position: sticky;
+    top: 0;
+    background-color: #f1f1f1;
+}
