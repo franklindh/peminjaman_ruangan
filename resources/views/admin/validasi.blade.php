@@ -46,7 +46,7 @@
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a href="index.html" class="navbar-brand mx-4 mb-3">
+                <a href="{{ url('/admin') }}" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class=""></i>Admin</h3>
                 </a>
                 {{-- <div class="d-flex align-items-center ms-4 mb-4">
@@ -63,9 +63,9 @@
                     </div>
                 </div> --}}
                 <div class="navbar-nav w-100">
-                    <a href="index.html" class="nav-item nav-link"><i
+                    <a href="{{ url('/admin') }}" class="nav-item nav-link"><i
                             class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Validasi</a>
+                    <a href="{{ url('/admin/validasi') }}" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Validasi</a>
                     <a href="table.html" class="nav-item nav-link"><i class="fa fa-user me-2"></i>Data User</a>
 
                 </div>
@@ -108,48 +108,77 @@
 
 
             <!-- Recent Sales Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="bg-light text-center rounded p-4">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Permintaan Peminjaman</h6>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table text-start align-middle table-bordered table-hover mb-0">
-                            <thead>
-                                <tr class="text-dark">
-                                    <th scope="col">No</th>
-                                    <th scope="col">Nama Peminjam</th>
-                                    <th scope="col">Nama Ruang</th>
-                                    <th scope="col">Tanggal Meminjam</th>
-                                    <th scope="col">Tanggal Akhir Meminjam</th>
-                                    <th scope="col">Action</th>
+            <!-- Recent Sales Start -->
+        <div class="container-fluid pt-4 px-4">
+            <div class="bg-light text-center rounded p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h6 class="mb-0">Permintaan Peminjaman</h6>
+                </div>
+                <div class="table-responsive">
+                    <table class="table text-start align-middle table-bordered table-hover mb-0">
+                        <thead>
+                            <tr class="text-dark">
+                                <th scope="col">No</th>
+                                <th scope="col">Nama Peminjam</th>
+                                <th scope="col">Nama Ruang</th>
+                                <th scope="col">Tanggal Meminjam</th>
+                                <th scope="col">Tanggal Akhir Meminjam</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            // Menggantikan koneksi dan query database dengan yang sesuai
+                            $servername = "localhost";
+                            $username = "root";
+                            $password = "";
+                            $dbname = "test";
 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Ahmad</td>
-                                    <td>D.3.1</td>
-                                    <td>05-08-2024</td>
-                                    <td>08-08-2025</td>
-                                    <td><a class="btn btn-sm btn-info text-white" href="">Detail</a></td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Santi</td>
-                                    <td>D.3.1</td>
-                                    <td>05-08-2024</td>
-                                    <td>08-08-2025</td>
-                                    <td><a class="btn btn-sm btn-info text-white" href="">Detail</a></td>
-                                </tr>
+                            $conn = new mysqli($servername, $username, $password, $dbname);
+                            if ($conn->connect_error) {
+                                die("Connection failed: " . $conn->connect_error);
+                            }
 
+                            $sql = "SELECT * FROM pinjamruang";
+                            $result = $conn->query($sql);
 
-                            </tbody>
-                        </table>
-                    </div>
+                            if ($result->num_rows > 0) {
+                                $count = 1;
+                                while ($row = $result->fetch_assoc()) {
+                                    $id = $row["id"];
+                                    $nama = $row["nama"];
+                                    $ruang = $row["id_ruang"];
+                                    $tanggal_peminjaman = $row["tanggalmulai"];
+                                    $tanggal_akhir_peminjaman = $row["tanggalselesai"];
+                                    ?>
+                                    <tr>
+                                        <td><?php echo $count; ?></td>
+                                        <td><?php echo $nama; ?></td>
+                                        <td><?php echo $ruang; ?></td>
+                                        <td><?php echo $tanggal_peminjaman; ?></td>
+                                        <td><?php echo $tanggal_akhir_peminjaman; ?></td>
+                                        <td>
+                                            <a class="btn btn-sm btn-info text-white" href="">Detail</a>
+                                            <button class="btn btn-sm btn-success text-white"
+                                                onclick="validasiPeminjaman(<?php echo $id; ?>)">Validasi</button>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                    $count++;
+                                }
+                                
+                            } else {
+                                echo "<tr><td colspan='6'>Tidak ada data user.</td></tr>";
+                            }
+                            $conn->close();
+                            ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+        </div>
+<!-- Recent Sales End -->
+
             <!-- Recent Sales End -->
 
 
@@ -183,6 +212,12 @@
 
         <!-- Template Javascript -->
         <script src="{{ asset('js/admin/landing.js') }}"></script>
+        <script>
+            function validasiPeminjaman(id) {
+                // Lakukan validasi peminjaman dengan ID tertentu di sini
+                console.log("Validasi peminjaman dengan ID:", id);
+            }
+        </script>
 </body>
 
 </html>

@@ -17,11 +17,13 @@ class HomeController extends Controller
         $ruang = Ruang::all();
         return view('landing', ['ruang' => $ruang]);
     }
+
     public function ruang()
     {
         $ruang = Ruang::all();
         return view('ruang', ['ruang' => $ruang]);
     }
+    
     public function kontak()
     {
         return view('kontak');

@@ -19,6 +19,27 @@ Route::get('/admin', function () {
     return view('admin.setup');
 });
 
+Route::get('/admin/dashboard', function(){
+    return view('admin.dashboard');
+});
+
+Route::get('/admin/validasi', function(){
+    return view('admin.validasi');
+});
+
+Route::get('/admin/detail_validasi', function(){
+    return view('admin.validasidetail');
+});
+
+Route::get('/peminjaman-ruangan', 'PeminjamanRuanganController@index')->name('peminjaman.ruangan.index');
+Route::post('/peminjaman-ruangan/validasi', 'PeminjamanRuanganController@validasi')->name('peminjaman.ruangan.validasi');
+
+
+/*Route::get('/dashboard', function () {
+    return view('admin.dashboard');
+});*/
+
+
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login/validate', [AuthController::class, 'login'])->name('login.valid');
 
