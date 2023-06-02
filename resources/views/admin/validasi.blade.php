@@ -108,7 +108,7 @@
 
 
             <!-- Recent Sales Start -->
-            <!-- Recent Sales Start -->
+         <!-- Recent Sales Start -->
         <div class="container-fluid pt-4 px-4">
             <div class="bg-light text-center rounded p-4">
                 <div class="d-flex align-items-center justify-content-between mb-4">
@@ -120,9 +120,10 @@
                             <tr class="text-dark">
                                 <th scope="col">No</th>
                                 <th scope="col">Nama Peminjam</th>
-                                <th scope="col">Nama Ruang</th>
+                                <th scope="col">ID Ruang</th>
                                 <th scope="col">Tanggal Meminjam</th>
                                 <th scope="col">Tanggal Akhir Meminjam</th>
+                                <th scope="col">Kontak Peminjam</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -150,6 +151,8 @@
                                     $ruang = $row["id_ruang"];
                                     $tanggal_peminjaman = $row["tanggalmulai"];
                                     $tanggal_akhir_peminjaman = $row["tanggalselesai"];
+                                    $keterangan_pinjam = $row["keperluan"];
+                                    $nomor_handphone= $row["nohp"];
                                     ?>
                                     <tr>
                                         <td><?php echo $count; ?></td>
@@ -157,18 +160,21 @@
                                         <td><?php echo $ruang; ?></td>
                                         <td><?php echo $tanggal_peminjaman; ?></td>
                                         <td><?php echo $tanggal_akhir_peminjaman; ?></td>
+                                        <td><?php echo $nomor_handphone; ?></td>
                                         <td>
                                             <a class="btn btn-sm btn-info text-white" href="">Detail</a>
                                             <button class="btn btn-sm btn-success text-white"
                                                 onclick="validasiPeminjaman(<?php echo $id; ?>)">Validasi</button>
+                                            <button class="btn btn-sm btn-danger text-white"
+                                                onclick="hapusPeminjaman(<?php echo $id; ?>)">Hapus</button>
                                         </td>
                                     </tr>
                                     <?php
                                     $count++;
                                 }
-                                
+
                             } else {
-                                echo "<tr><td colspan='6'>Tidak ada data user.</td></tr>";
+                                echo "<tr><td colspan='7'>Tidak ada data user.</td></tr>";
                             }
                             $conn->close();
                             ?>
@@ -177,7 +183,6 @@
                 </div>
             </div>
         </div>
-<!-- Recent Sales End -->
 
             <!-- Recent Sales End -->
 

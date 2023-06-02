@@ -31,8 +31,9 @@ Route::get('/admin/detail_validasi', function(){
     return view('admin.validasidetail');
 });
 
+Route::post('/validasi-peminjaman/{id}', [PeminjamanRuanganController::class, 'validasiPeminjaman'])->name('peminjaman.validasi');
+
 Route::get('/peminjaman-ruangan', 'PeminjamanRuanganController@index')->name('peminjaman.ruangan.index');
-Route::post('/peminjaman-ruangan/validasi', 'PeminjamanRuanganController@validasi')->name('peminjaman.ruangan.validasi');
 
 
 /*Route::get('/dashboard', function () {
