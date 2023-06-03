@@ -22,6 +22,14 @@
                     <input type="date" id="tglselesai" name="tglselesai" required>
                 </div>
                 <div class="form-group">
+                    <label for="waktumulai">Waktu Mulai:</label>
+                    <input type="time" id="waktumulai" name="waktumulai" required>
+                </div>
+                <div class="form-group">
+                    <label for="waktuselesai">Waktu Selesai:</label>
+                    <input type="time" id="waktuselesai" name="waktuselesai" required>
+                </div>
+                <div class="form-group">
                     <label for="pilihruang">Ruang:</label>
                     <select name="pilihruang" id="pilihruang">
                         <option value="" disabled selected>Pilih Ruang</option>

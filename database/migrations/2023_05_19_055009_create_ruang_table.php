@@ -19,7 +19,6 @@ return new class extends Migration {
             $table->string('gambar', 100);
             $table->string('kategori', 100);
             $table->string('fasilitas', 100);
-            $table->enum('status', ['y', 'n'])->default('n');
             $table->timestamps();
         });
     }

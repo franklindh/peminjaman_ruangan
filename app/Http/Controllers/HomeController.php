@@ -23,7 +23,7 @@ class HomeController extends Controller
         $ruang = Ruang::all();
         return view('ruang', ['ruang' => $ruang]);
     }
-    
+
     public function kontak()
     {
         return view('kontak');
@@ -36,6 +36,8 @@ class HomeController extends Controller
             'nama' => 'required',
             'tglmulai' => 'required',
             'tglselesai' => 'required',
+            'waktumulai' => 'required',
+            'waktuselesai' => 'required',
             'pilihruang' => 'required',
             'keperluan' => 'required',
             'nohp' => 'required'
@@ -47,6 +49,8 @@ class HomeController extends Controller
             'nama' => $request->nama,
             'tanggalmulai' => $request->tglmulai,
             'tanggalselesai' => $request->tglselesai,
+            'waktumulai' => $request->waktumulai,
+            'waktuselesai' => $request->waktuselesai,
             'keperluan' => $request->keperluan,
             'email' => $user->email,
             'nohp' => $request->nohp,

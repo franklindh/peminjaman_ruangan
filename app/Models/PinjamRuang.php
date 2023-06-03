@@ -14,9 +14,12 @@ class PinjamRuang extends Model
         'nama',
         'tanggalmulai',
         'tanggalselesai',
+        'waktumulai',
+        'waktuselesai',
         'keperluan',
         'email',
         'nohp',
+        'status',
         'id_user',
         'id_ruang'
     ];

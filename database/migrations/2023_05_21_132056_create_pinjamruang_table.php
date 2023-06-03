@@ -19,9 +19,12 @@ return new class extends Migration {
             $table->unsignedBigInteger('id_user');
             $table->date('tanggalmulai');
             $table->date('tanggalselesai');
+            $table->time('waktumulai');
+            $table->time('waktuselesai');
             $table->string('keperluan', 100)->nullable;
             $table->string('email', 100)->nullable;
             $table->string('nohp', 100)->nullable;
+            $table->enum('status', ['belum disetujui', 'disetujui', 'ditolak', 'delesai'])->default('belum disetujui');
             $table->timestamps();
 
             $table->foreign('id_ruang')->references('id')->on('ruang');
