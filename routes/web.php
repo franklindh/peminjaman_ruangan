@@ -19,15 +19,15 @@ Route::get('/admin', function () {
     return view('admin.setup');
 });
 
-Route::get('/admin/dashboard', function(){
+Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
 });
 
-Route::get('/admin/validasi', function(){
+Route::get('/admin/validasi', function () {
     return view('admin.validasi');
 });
 
-Route::get('/admin/detail_validasi', function(){
+Route::get('/admin/detail_validasi', function () {
     return view('admin.validasidetail');
 });
 
@@ -37,7 +37,7 @@ Route::get('/peminjaman-ruangan', 'PeminjamanRuanganController@index')->name('pe
 
 
 /*Route::get('/dashboard', function () {
-    return view('admin.dashboard');
+return view('admin.dashboard');
 });*/
 
 
@@ -47,8 +47,14 @@ Route::post('/login/validate', [AuthController::class, 'login'])->name('login.va
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [HomeController::class, 'home'])->name('user.home');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/cek', [HomeController::class, 'cek'])->name('user.cek');
     Route::get('/ruang', [HomeController::class, 'ruang'])->name('user.ruang');
     Route::get('/kontak', [HomeController::class, 'kontak'])->name('user.kontak');
 
+    Route::post('/batal', [HomeController::class, 'batal'])->name('user.batal');
+
+
+
     Route::post('/pinjam', [HomeController::class, 'pinjam'])->name('pinjam');
+
 });

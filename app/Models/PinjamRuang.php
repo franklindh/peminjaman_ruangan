@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Ruang;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,10 +18,16 @@ class PinjamRuang extends Model
         'waktumulai',
         'waktuselesai',
         'keperluan',
+        'tujuan',
         'email',
         'nohp',
         'status',
         'id_user',
         'id_ruang'
     ];
+    public function ruangan()
+    {
+        return $this->belongsTo(Ruang::class, 'id_ruang');
+    }
+
 }

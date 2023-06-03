@@ -10,6 +10,7 @@
                 <li class="nav-item @if (\Request::is('/')) active @endif"><a href="/"
                         class="nav-link">Beranda</a></li>
                 {{-- <li class="nav-item"><a href="about.html" class="nav-link">Tentang</a></li> --}}
+                <li class="nav-item"><a href="{{ route('user.cek') }}" class="nav-link">Status Peminjaman</a></li>
                 <li class="nav-item"><a href="{{ route('user.ruang') }}" class="nav-link">Ruang</a></li>
                 {{-- <li class="nav-item @if (\Request::is('rooms')) active @endif"><a href="{{ route('rooms') }}"
                         class="nav-link">Daftar Ruangan</a></li> --}}

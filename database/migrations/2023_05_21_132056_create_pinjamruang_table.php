@@ -22,6 +22,7 @@ return new class extends Migration {
             $table->time('waktumulai');
             $table->time('waktuselesai');
             $table->string('keperluan', 100)->nullable;
+            $table->text('tujuan');
             $table->string('email', 100)->nullable;
             $table->string('nohp', 100)->nullable;
             $table->enum('status', ['belum disetujui', 'disetujui', 'ditolak', 'delesai'])->default('belum disetujui');

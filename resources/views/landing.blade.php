@@ -2,6 +2,12 @@
 @section('content')
     <div class="container" style="">
         <div class="form-container">
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <form method="POST" action={{ route('pinjam') }}>
                 @csrf
                 <h2>Formulir Peminjaman Ruangan</h2>
@@ -40,11 +46,15 @@
                 </div>
                 <div class="form-group">
                     <label for="keperluan">Keperluan</label>
-                    <select name="keperluan" id="keperluan">
+                    <select name="keperluan" id="keperluan" required>
                         <option value="" disabled selected>Pilih Keperluan</option>
                         <option value="Akademik">Akademik</option>
                         <option value="Seminar">Seminar</option>
                     </select>
+                </div>
+                <div class="form-group">
+                    <label for="tujuan">Tujuan</label>
+                    <textarea name="tujuan" id="" cols="30" rows="10" required></textarea>
                 </div>
                 <div class="form-group">
                     <div class="tombolform">
