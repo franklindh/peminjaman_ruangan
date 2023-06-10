@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -13,19 +15,30 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    // public function login(Request $request)
-    // {
-    //     $check = $request->validate([
-    //         'email' => 'required|email',
-    //         'password' => 'required',
-    //     ]);
-    //     // dd($check);
-    //     if (Auth::guard('web')->attempt(['email' => $check['email'], 'password' => $check['password']])) {
-    //         return redirect()->route('user.home')->with('error', 'Login berhasil');
-    //     } else {
-    //         return redirect()->route('login')->with('error', 'Email atau Password salah');
-    //     }
-    // }
+    public function register(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'password' => 'required|min:6',
+        ]);
+    
+        if ($validator->fails()) {
+            return redirect()->back()->with('success', 'Gagal!'); 
+        }
+
+        $user = User::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => Hash::make($request->input('password')),
+        ]);
+            return redirect()->route('login')->with('success', 'Registrasi berhasil!'); 
+    
+
+        
+
+        
+    }
 
     public function login(Request $request)
     {

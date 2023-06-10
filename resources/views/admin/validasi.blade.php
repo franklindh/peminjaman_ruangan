@@ -109,80 +109,109 @@
 
             <!-- Recent Sales Start -->
          <!-- Recent Sales Start -->
-        <div class="container-fluid pt-4 px-4">
-            <div class="bg-light text-center rounded p-4">
-                <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h6 class="mb-0">Permintaan Peminjaman</h6>
-                </div>
-                <div class="table-responsive">
-                    <table class="table text-start align-middle table-bordered table-hover mb-0">
-                        <thead>
-                            <tr class="text-dark">
-                                <th scope="col">No</th>
-                                <th scope="col">Nama Peminjam</th>
-                                <th scope="col">ID Ruang</th>
-                                <th scope="col">Tanggal Meminjam</th>
-                                <th scope="col">Tanggal Akhir Meminjam</th>
-                                <th scope="col">Kontak Peminjam</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            // Menggantikan koneksi dan query database dengan yang sesuai
-                            $servername = "localhost";
-                            $username = "root";
-                            $password = "";
-                            $dbname = "test";
-
-                            $conn = new mysqli($servername, $username, $password, $dbname);
-                            if ($conn->connect_error) {
-                                die("Connection failed: " . $conn->connect_error);
-                            }
-
-                            $sql = "SELECT * FROM pinjamruang";
-                            $result = $conn->query($sql);
-
-                            if ($result->num_rows > 0) {
-                                $count = 1;
-                                while ($row = $result->fetch_assoc()) {
-                                    $id = $row["id"];
-                                    $nama = $row["nama"];
-                                    $ruang = $row["id_ruang"];
-                                    $tanggal_peminjaman = $row["tanggalmulai"];
-                                    $tanggal_akhir_peminjaman = $row["tanggalselesai"];
-                                    $keterangan_pinjam = $row["keperluan"];
-                                    $nomor_handphone= $row["nohp"];
-                                    ?>
-                                    <tr>
-                                        <td><?php echo $count; ?></td>
-                                        <td><?php echo $nama; ?></td>
-                                        <td><?php echo $ruang; ?></td>
-                                        <td><?php echo $tanggal_peminjaman; ?></td>
-                                        <td><?php echo $tanggal_akhir_peminjaman; ?></td>
-                                        <td><?php echo $nomor_handphone; ?></td>
-                                        <td>
-                                            <a class="btn btn-sm btn-info text-white" href="">Detail</a>
-                                            <button class="btn btn-sm btn-success text-white"
-                                                onclick="validasiPeminjaman(<?php echo $id; ?>)">Validasi</button>
-                                            <button class="btn btn-sm btn-danger text-white"
-                                                onclick="hapusPeminjaman(<?php echo $id; ?>)">Hapus</button>
-                                        </td>
-                                    </tr>
-                                    <?php
-                                    $count++;
-                                }
-
-                            } else {
-                                echo "<tr><td colspan='7'>Tidak ada data user.</td></tr>";
-                            }
-                            $conn->close();
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        <di<div class="container-fluid pt-3 px-3">
+    <div class="bg-light text-center rounded p-3">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Permintaan Peminjaman</h6>
         </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-dark">
+                        <th scope="col">No</th>
+                        <th scope="col">Nama Peminjam</th>
+                        <th scope="col">ID Ruang</th>
+                        <th scope="col">Tanggal Meminjam</th>
+                        <th scope="col">Tanggal Akhir Meminjam</th>
+                        <th scope="col">Jam Mulai</th>
+                        <th scope="col">Jam Selesai</th>
+                        <th scope="col">Keperluan</th>
+                        <th scope="col">Tujuan Peminjaman</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Kontak Peminjam</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    // Menggantikan koneksi dan query database dengan yang sesuai
+                    $servername = "localhost";
+                    $username = "root";
+                    $password = "";
+                    $dbname = "test";
+
+                    $conn = new mysqli($servername, $username, $password, $dbname);
+                    if ($conn->connect_error) {
+                        die("Connection failed: " . $conn->connect_error);
+                    }
+
+                    $sql = "SELECT * FROM pinjamruang";
+                    $result = $conn->query($sql);
+
+                    if ($result->num_rows > 0) {
+                        $count = 1;
+                        while ($row = $result->fetch_assoc()) {
+                            $id = $row["id"];
+                            $nama = $row["nama"];
+                            $id_ruang = $row["id_ruang"];
+                            $tanggalmulai = $row["tanggalmulai"];
+                            $tanggalselesai = $row["tanggalselesai"];
+                            $waktumulai = $row["waktumulai"];
+                            $waktuselesai = $row["waktuselesai"];
+                            $keperluan = $row["keperluan"];
+                            $tujuan = $row["tujuan"];
+                            $email = $row["email"];                                    
+                            $nohp= $row["nohp"];
+                            $status= $row["status"];
+
+                            ?>
+                            <tr>
+                                <td><?php echo $count; ?></td>
+                                <td><?php echo $nama; ?></td>
+                                <td><?php echo $id_ruang; ?></td>
+                                <td><?php echo $tanggalmulai; ?></td>
+                                <td><?php echo $tanggalselesai; ?></td>
+                                <td><?php echo $waktumulai; ?></td>
+                                <td><?php echo $waktuselesai; ?></td>
+                                <td><?php echo $keperluan; ?></td>
+                                <td><?php echo $tujuan; ?></td>
+                                <td><?php echo $email; ?></td>
+                                <td><?php echo $nohp; ?></td>
+                                <td><?php echo $status; ?></td>
+                                <td>
+                                    <form action="{{ route('validasiPeminjaman', $id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-success text-white">Validasi</button>
+                                    </form>
+                                    <br>
+                                    <form action="{{ route('tolakPeminjaman', $id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-warning text-white">Tolak</button>
+                                    </form>
+                                    <br>
+                                    <form action="{{ route('hapusPeminjaman', $id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-danger text-white">Hapus</button>
+                                    </form>
+                                </td>
+                            </tr>
+
+                            <?php
+                            $count++;
+                        }
+
+                    } else {
+                        echo "<tr><td colspan='13'>Belum ada permintaan peminjaman ruangan</td></tr>";
+                    }
+                    $conn->close();
+                    ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
 
             <!-- Recent Sales End -->
 

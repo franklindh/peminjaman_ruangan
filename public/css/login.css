@@ -67,3 +67,12 @@ input[type="password"] {
 .btn:hover {
     background-color: #ffd900;
 }
+
+.custom-alert {
+    background-color: #ffcccc;
+    color: #c50000;
+    padding: 10px;
+    border: 1px solid #c50000;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}

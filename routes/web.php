@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PeminjamanRuanganController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,18 +32,23 @@ Route::get('/admin/detail_validasi', function () {
     return view('admin.validasidetail');
 });
 
-Route::post('/validasi-peminjaman/{id}', [PeminjamanRuanganController::class, 'validasiPeminjaman'])->name('peminjaman.validasi');
+Route::post('/validasiPeminjaman/{id}', [PeminjamanRuanganController::class, 'validasiPeminjaman'])->name('validasiPeminjaman');
 
 Route::get('/peminjaman-ruangan', 'PeminjamanRuanganController@index')->name('peminjaman.ruangan.index');
 
+Route::post('/admin/tolak/{id}', [PeminjamanRuanganController::class, 'tolakPeminjaman'])->name('tolakPeminjaman');
 
-/*Route::get('/dashboard', function () {
-return view('admin.dashboard');
-});*/
+Route::post('/admin/hapus/{id}', [PeminjamanRuanganController::class, 'hapusPeminjaman'])->name('hapusPeminjaman');
+
 
 
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login/validate', [AuthController::class, 'login'])->name('login.valid');
+Route::get('/register', function () {
+    return view('auth.register');
+});
+Route::post('/register/valid', [AuthController::class, 'register'])->name('register.valid');
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [HomeController::class, 'home'])->name('user.home');
@@ -52,8 +58,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/kontak', [HomeController::class, 'kontak'])->name('user.kontak');
 
     Route::post('/batal', [HomeController::class, 'batal'])->name('user.batal');
-
-
 
     Route::post('/pinjam', [HomeController::class, 'pinjam'])->name('pinjam');
 
