@@ -15,6 +15,7 @@
                 {{-- <li class="nav-item @if (\Request::is('rooms')) active @endif"><a href="{{ route('rooms') }}"
                         class="nav-link">Daftar Ruangan</a></li> --}}
                 <li class="nav-item"><a href="{{ route('user.kontak') }}" class="nav-link">Kontak</a></li>
+                <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link">Logout</a></li>
             </ul>
         </div>
     </div>
