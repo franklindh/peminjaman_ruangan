@@ -22,9 +22,9 @@ class AuthController extends Controller
             'email' => 'required|email|max:255',
             'password' => 'required|min:6',
         ]);
-    
+
         if ($validator->fails()) {
-            return redirect()->back()->with('success', 'Gagal!'); 
+            return redirect()->back()->withErrors($validator)->withInput();
         }
 
         $user = User::create([
@@ -32,12 +32,12 @@ class AuthController extends Controller
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
         ]);
-            return redirect()->route('login')->with('success', 'Registrasi berhasil!'); 
-    
+        return redirect()->route('login')->with('success', 'Registrasi berhasil!');
 
-        
 
-        
+
+
+
     }
 
     public function login(Request $request)

@@ -16,11 +16,11 @@
 
 <body>
     <!-- @if (Session::has('error'))
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
             <strong>{{ Session::get('error') }}</strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-    @endif
+@endif
 
     {{-- @if ($errors->any())
         <div class="alert alert-danger">
@@ -32,35 +32,40 @@
         </div>
     @endif --}} -->
 
-    
-    
-    
+
+
+
 
     <div class="container">
 
-        @if (session('success'))
-                    <div class="custom-alert">
-                        {{ session('success') }}
-                    </div>
-                @endif    
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
 
         <h1>Register</h1>
         <form method="POST" action="{{ route('register.valid') }}">
             @csrf
             <div class="form-group">
                 <label for="name">Nama:</label>
-                <input type="name" id="name" name="name">
+                <input type="name" id="name" name="name" required>
             </div>
             <div class="form-group">
                 <label for="userid">Email:</label>
-                <input type="email" id="email" name="email">
+                <input type="email" id="email" name="email" required>
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
             </div>
             <button type="submit" class="btn">Register</button>
-            <p>Back to Login  <a href="/login">click disini</a></p>
+            <p>Back to Login <a href="/login">click disini</a></p>
         </form>
     </div>
     <script src="{{ asset('js/login.js') }}"></script>
