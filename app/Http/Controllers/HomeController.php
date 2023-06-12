@@ -17,7 +17,8 @@ class HomeController extends Controller
         $ruang = Ruang::whereNotIn('id', function ($query) {
             $query->select('id_ruang')
                 ->from('pinjamruang')
-                ->where('status', '!=', 'dibatalkan');
+                ->where('status', '!=', 'belum disetujui')
+                ->orwhere('status', '!=', 'disetujui');
         })->get();
         return view('landing', ['ruang' => $ruang]);
     }
@@ -86,7 +87,8 @@ class HomeController extends Controller
             'email' => $user->email,
             'nohp' => $request->nohp,
             'id_user' => $user->id,
-            'id_ruang' => $request->pilihruang
+            'id_ruang' => $request->pilihruang,
+            'status' => 'belum disetujui'
         ];
 
         PinjamRuang::create($pinjam);

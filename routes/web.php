@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PeminjamanRuanganController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,13 +17,15 @@ use App\Http\Controllers\PeminjamanRuanganController;
 |
 */
 
-Route::get('/admin', function () {
-    return view('admin.setup');
-});
+// Route::get('/admin', function () {
+//     return view('admin.setup');
+// });
+Route::get('/admin', [AdminController::class, 'index']);
 
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-});
+// tidak usah dipakai
+// Route::get('/admin/dashboard', function () {
+//     return view('admin.dashboard');
+// });
 
 Route::get('/admin/validasi', function () {
     return view('admin.validasi');

@@ -25,7 +25,7 @@ return new class extends Migration {
             $table->text('tujuan');
             $table->string('email', 100)->nullable;
             $table->string('nohp', 100)->nullable;
-            $table->enum('status', ['belum disetujui', 'disetujui', 'ditolak', 'delesai'])->default('belum disetujui');
+            $table->enum('status', ['belum disetujui', 'disetujui', 'ditolak', 'delesai'])->default('delesai');
             $table->timestamps();
 
             $table->foreign('id_ruang')->references('id')->on('ruang');
