@@ -30,7 +30,6 @@
     <!-- Template Stylesheet -->
     <link href="{{ asset('css/admin/style.css') }}" rel="stylesheet">
 </head>
-
 <body>
     <div class="container-xxl position-relative bg-white d-flex p-0">
         <!-- Spinner Start -->
@@ -95,95 +94,39 @@
 
                 </div>
             </nav>
-            <!-- Navbar End -->
+
+<form action="{{ route('tambahruang') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+    <div class="form-group">
+        <label for="kapasitas">Kapasitas</label>
+        <input type="number" name="kapasitas" id="kapasitas" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+        <label for="nama_ruang">Nama Ruangan</label>
+        <input type="text" name="nama_ruang" id="nama_ruang" class="form-control" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="gambar">Gambar : </label>
+        <input type="file" name="gambar" id="gambar" class="form-control-file" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="kategori">Kategori</label>
+        <input type="text" name="kategori" id="kategori" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+        <label for="fasilitas">Fasilitas</label>
+        <input type="text" name="fasilitas" id="fasilitas" class="form-control" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Tambah Ruangan</button>
+</form>
 
 
-            <!-- Sale & Revenue Start -->
-
-            <!-- Sale & Revenue End -->
-
-
-            <!-- Sales Chart Start -->
-
-            <!-- Sales Chart End -->
-
-
-            <!-- Recent Sales Start -->
-            <div class="container-fluid pt-4 px-4">
-                {{-- <div class="bg-light  rounded p-4">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Detail Permintaan Peminjaman</h6>
-                    </div>
-
-                    <div class="table-responsive">
-                        <table class="table text-start align-middle table-bordered table-hover mb-0">
-                            <thead>
-                                <tr class="text-dark">
-                                    <th scope="col">Data</th>
-                                    <th scope="col">Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>User</td>
-                                    <td><a class="btn btn-sm btn-info text-white" href="">Lihat</a></td>
-                                </tr>
-                                <tr>
-                                    <td>Admin</td>
-                                    <td><a class="btn btn-sm btn-info text-white" href="">Lihat</a></td>
-                                </tr>
-                                <tr>
-                                    <td>Ruang</td>
-                                    <td><a class="btn btn-sm btn-info text-white" href="">Lihat</a></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div> --}}
-                <div class="bg-light  rounded p-4 mt-4">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Data Ruang</h6>
-                    </div>
-
-                    <div class="table-responsive">
-                        <table class="table text-start align-middle table-bordered table-hover mb-0">
-                            <thead>
-                                <tr class="text-dark">
-                                    {{-- <th scope="col">No</th> --}}
-                                    <th scope="col">Ruang yang sedang dipinjam</th>
-                                    <th scope="col">Ruang yang belum disetujui</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <td> {{ $sudahDisetujuiCount }}</td>
-                                <td> {{ $belumDisetujuiCount }}</td>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <!-- Recent Sales End -->
-
-
-            <!-- Widgets Start -->
-
-            <!-- Widgets End -->
-
-
-            <!-- Footer Start -->
-
-            <!-- Footer End -->
-
-            <!-- Content End -->
-
-
-            <!-- Back to Top -->
-            <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
-                    class="bi bi-arrow-up"></i></a>
-        </div>
-
-        <!-- JavaScript Libraries -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="lib/chart/chart.min.js"></script>
         <script src="lib/easing/easing.min.js"></script>

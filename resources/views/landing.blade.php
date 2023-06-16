@@ -8,7 +8,7 @@
                 </div>
             @endif
 
-            <form method="POST" action={{ route('pinjam') }}>
+            <form method="POST" action="{{ route('pinjam') }}">
                 @csrf
                 <h2>Formulir Peminjaman Ruangan</h2>
                 <div class="form-group">

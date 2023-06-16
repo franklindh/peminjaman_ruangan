@@ -15,6 +15,7 @@ class AdminController extends Controller
 
     public function index()
     {
+    
         $belumDisetujuiCount = PinjamRuang::where('status', 'belum disetujui')->count();
         $sudahDisetujuiCount = PinjamRuang::where('status', 'disetujui')->count();
         $ditolakCount = PinjamRuang::where('status', 'ditolak')->count();
@@ -28,6 +29,7 @@ class AdminController extends Controller
             'ditolakCount' => $ditolakCount,
             'dselesaiCount' => $dselesaiCount,
         ]);
+        // return view('admin.setup', );
 
         // return view('admin.setup', [
         //     'users' => PinjamRuang::where('status', 'belum disetujui')

@@ -66,7 +66,7 @@
                     <a href="{{ url('/admin') }}" class="nav-item nav-link"><i
                             class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <a href="{{ url('/admin/validasi') }}" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Validasi</a>
-                    <a href="table.html" class="nav-item nav-link"><i class="fa fa-user me-2"></i>Data User</a>
+                    <a href="table.html" class="nav-item nav-link"><i class="fa fa-user me-2"></i>Setup</a>
 
                 </div>
             </nav>

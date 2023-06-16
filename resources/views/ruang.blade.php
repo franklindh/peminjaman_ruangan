@@ -14,9 +14,9 @@
             <tbody>
                 @foreach ($ruang as $r)
                     <tr>
-                        <td style="width: 40%;"><span><b>{{ $r->nama_ruang }}</b></span><img
-                                src="{{ asset('images/' . $r->gambar) }}.jpg" alt="Gambar Kecil"
-                                style="width: 100%; height: 20%;">
+                        <td style="width: 40%;">
+                            <span><b>{{ $r->nama_ruang }}</b></span>
+                            <img src="{{ asset('storage/gambar/' . $r->gambar) }}" alt="Gambar Kecil" style="width: 100px; height: 100px;">
                         </td>
                         <td>{{ $r->kapasitas }}</td>
                         <td>{{ $r->fasilitas }}</td>

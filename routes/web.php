@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PeminjamanRuanganController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SetupAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,19 @@ Route::get('/admin/detail_validasi', function () {
 Route::post('/validasiPeminjaman/{id}', [PeminjamanRuanganController::class, 'validasiPeminjaman'])->name('validasiPeminjaman');
 
 Route::get('/peminjaman-ruangan', 'PeminjamanRuanganController@index')->name('peminjaman.ruangan.index');
+
+
+
+
+Route::get('/admin/setupadmin', function () {
+    return view('admin.setupadmin');
+});
+
+Route::post('/setupadmin/tambahruang', [SetupAdminController::class, 'tambahruang'])->name('tambahruang');
+
+
+
+
 
 Route::post('/admin/tolak/{id}', [PeminjamanRuanganController::class, 'tolakPeminjaman'])->name('tolakPeminjaman');
 
