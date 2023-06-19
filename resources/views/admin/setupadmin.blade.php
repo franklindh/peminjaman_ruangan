@@ -66,7 +66,7 @@
                             class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <a href="{{ url('/admin/validasi') }}" class="nav-item nav-link"><i
                             class="fa fa-keyboard me-2"></i>Validasi</a>
-                    <a href="table.html" class="nav-item nav-link"><i class="fa fa-user me-2"></i>Setup</a>
+                    <a href="{{ url('/admin/setupadmin') }}" class="nav-item nav-link"><i class="fa fa-user me-2"></i>Setup</a>
 
                 </div>
             </nav>
@@ -88,7 +88,7 @@
 
 
                 <div class="navbar-nav align-items-center ms-auto">
-                    <a class="btn-danger rounded" href="">Logout</a>
+                    <a class="btn-danger rounded" href="{{ route('logout') }}">Logout</a>
 
 
 

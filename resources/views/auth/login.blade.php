@@ -39,6 +39,7 @@
             <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
+                
             </div>
             <button type="submit" class="btn">Login</button>
             <p>Belum punya akun? <a href="/register">Daftar disini</a></p>

@@ -19,7 +19,7 @@
                             <span><b>{{ $r->nama_ruang }}</b></span>
                         </td>
                         <td>
-                            <img src="{{ asset($r->gambar) }}" alt="Gambar Kecil" style="width: 200px; height: 200px">
+                            <img src="{{ asset($r->gambar) }}" alt="Gambar Kecil" style="width: 300px; height: 200px">
                         </td>
                         <td>{{ $r->kapasitas }}</td>
                         <td>{{ $r->fasilitas }}</td>

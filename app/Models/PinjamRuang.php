@@ -30,4 +30,9 @@ class PinjamRuang extends Model
         return $this->belongsTo(Ruang::class, 'id_ruang');
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user');
+    }
+
 }

@@ -88,7 +88,7 @@
                     <input class="form-control border-0" type="search" placeholder="Search">
                 </form>
                 <div class="navbar-nav align-items-center ms-auto">
-                    <a class="btn-danger rounded" href="">Logout</a>
+                    <a class="btn-danger rounded" href="{{ route('logout') }}">Logout</a>
 
 
 

@@ -31,6 +31,7 @@
     <link href="{{ asset('css/admin/style.css') }}" rel="stylesheet">
 </head>
 
+
 <body>
     <div class="container-xxl position-relative bg-white d-flex p-0">
         <!-- Spinner Start -->
@@ -67,7 +68,7 @@
                             class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <a href="{{ url('/admin/validasi') }}" class="nav-item nav-link"><i
                             class="fa fa-keyboard me-2"></i>Validasi</a>
-                    <a href="table.html" class="nav-item nav-link"><i class="fa fa-user me-2"></i>Setup</a>
+                    <a href="{{ url('/admin/setupadmin') }}" class="nav-item nav-link"><i class="fa fa-user me-2"></i>Setup</a>
 
                 </div>
             </nav>
@@ -89,13 +90,35 @@
 
 
                 <div class="navbar-nav align-items-center ms-auto">
-                    <a class="btn-danger rounded" href="">Logout</a>
-
-
-
+                    <a class="btn-danger rounded" href="{{ route('logout') }}">Logout</a>
                 </div>
             </nav>
-            <!-- Navbar End -->
+
+            <!-- DATA FOR ADMIN DISINI -->
+
+            <!-- Informasi Peminjaman Ruang Start -->
+            <div class="container-fluid pt-3 px-3">
+                <div class="bg-light text-center rounded p-3">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <h6 class="mb-0">Informasi Peminjaman Ruang</h6>
+                        </div>
+                        
+                        <div class="table-responsive">
+                            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                                <thead>
+                                    <tr class="text-dark">
+                                        <th scope="col">Total Ruang yang telah divalidasi</th>
+                                        <th scope="col">Total Ruang yang belum divalidasi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <td> {{ $sudahDisetujuiCount }}</td>
+                                    <td> {{ $belumDisetujuiCount }}</td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
 
 
             <!-- Sale & Revenue Start -->
@@ -108,61 +131,159 @@
             <!-- Sales Chart End -->
 
 
-            <!-- Recent Sales Start -->
-            <div class="container-fluid pt-4 px-4">
-                {{-- <div class="bg-light  rounded p-4">
+            <!-- Detail Permintaan Peminjaman Start -->
+            <div class="container-fluid pt-3 px-3">
+                <div class="bg-light text-center rounded p-3">
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <h6 class="mb-0">Detail Permintaan Peminjaman</h6>
                     </div>
-
+                    
                     <div class="table-responsive">
-                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                        <table class="table table-bordered table-hover mb-0">
                             <thead>
                                 <tr class="text-dark">
-                                    <th scope="col">Data</th>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Nama Peminjam</th>
+                                    <th scope="col">ID Ruang</th>
+                                    <th scope="col">Tanggal Meminjam</th>
+                                    <th scope="col">Tanggal Akhir Meminjam</th>
+                                    <th scope="col">Jam Mulai</th>
+                                    <th scope="col">Jam Selesai</th>
+                                    <th scope="col">Keperluan</th>
+                                    <th scope="col">Tujuan Peminjaman</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Kontak Peminjam</th>
                                     <th scope="col">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>User</td>
-                                    <td><a class="btn btn-sm btn-info text-white" href="">Lihat</a></td>
-                                </tr>
-                                <tr>
-                                    <td>Admin</td>
-                                    <td><a class="btn btn-sm btn-info text-white" href="">Lihat</a></td>
-                                </tr>
-                                <tr>
-                                    <td>Ruang</td>
-                                    <td><a class="btn btn-sm btn-info text-white" href="">Lihat</a></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div> --}}
-                <div class="bg-light  rounded p-4 mt-4">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Data Ruang</h6>
-                    </div>
+                                <?php
+                                // Menggantikan koneksi dan query database dengan yang sesuai
+                                $servername = "localhost";
+                                $username = "root";
+                                $password = "";
+                                $dbname = "test";
 
+                                $conn = new mysqli($servername, $username, $password, $dbname);
+                                if ($conn->connect_error) {
+                                    die("Connection failed: " . $conn->connect_error);
+                                }
+
+                                $sql = "SELECT * FROM pinjamruang";
+                                $result = $conn->query($sql);
+
+                                if ($result->num_rows > 0) {
+                                    $count = 1;
+                                    while ($row = $result->fetch_assoc()) {
+                                        $id = $row["id"];
+                                        $nama = $row["nama"];
+                                        $id_ruang = $row["id_ruang"];
+                                        $tanggalmulai = $row["tanggalmulai"];
+                                        $tanggalselesai = $row["tanggalselesai"];
+                                        $waktumulai = $row["waktumulai"];
+                                        $waktuselesai = $row["waktuselesai"];
+                                        $keperluan = $row["keperluan"];
+                                        $tujuan = $row["tujuan"];
+                                        $email = $row["email"];                                    
+                                        $nohp= $row["nohp"];
+                                        $status= $row["status"];
+
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $count; ?></td>
+                                            <td><?php echo $nama; ?></td>
+                                            <td><?php echo $id_ruang; ?></td>
+                                            <td><?php echo $tanggalmulai; ?></td>
+                                            <td><?php echo $tanggalselesai; ?></td>
+                                            <td><?php echo $waktumulai; ?></td>
+                                            <td><?php echo $waktuselesai; ?></td>
+                                            <td><?php echo $keperluan; ?></td>
+                                            <td><?php echo $tujuan; ?></td>
+                                            <td><?php echo $email; ?></td>
+                                            <td><?php echo $nohp; ?></td>
+                                            <td><?php echo $status; ?></td>
+                                        </tr>
+                                        <?php
+                                        $count++;
+                                    }
+                                } else {
+                                    echo "<tr><td colspan='13'>Belum ada permintaan peminjaman ruangan</td></tr>";
+                                }
+                                $conn->close();
+                                ?>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+            <!-- Detail Ruangan Start -->
+            <div class="container-fluid pt-3 px-3">
+                <div class="bg-light text-center rounded p-3">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="mb-0">Detail Ruangan</h6>
+                    </div>
+                    
                     <div class="table-responsive">
-                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                        <table class="table table-bordered table-hover mb-0">
                             <thead>
                                 <tr class="text-dark">
-                                    {{-- <th scope="col">No</th> --}}
-                                    <th scope="col">Ruang yang sedang dipinjam</th>
-                                    <th scope="col">Ruang yang belum disetujui</th>
+                                    <th scope="col">Nama Ruang</th>
+                                    <th scope="col">Gambar</th>
+                                    <th scope="col">Kapasitas</th>
+                                    <th scope="col">Fasilitas</th>
+                                    <th scope="col">Kategori</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            <td> {{ $sudahDisetujuiCount }}</td>
-                                <td> {{ $belumDisetujuiCount }}</td>
-                            </tbody>
-                        </table>
+                                <?php
+                                // Menggantikan koneksi dan query database dengan yang sesuai
+                                $servername = "localhost";
+                                $username = "root";
+                                $password = "";
+                                $dbname = "test";
+
+                                $conn = new mysqli($servername, $username, $password, $dbname);
+                                if ($conn->connect_error) {
+                                    die("Connection failed: " . $conn->connect_error);
+                                }
+
+                                $sql = "SELECT * FROM ruang";
+                                $result = $conn->query($sql);
+
+                                if ($result->num_rows > 0) {
+                                    $count = 1;
+                                    while ($row = $result->fetch_assoc()) {
+                                        $nama_ruang = $row["nama_ruang"];
+                                        $gambar = $row["gambar"];
+                                        $kapasitas = $row["kapasitas"];
+                                        $kategori = $row["kategori"];
+                                        $fasilitas = $row["fasilitas"];
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $nama_ruang; ?></td>
+                                            <td>
+                                                <img src="{{ asset($gambar) }}" alt="Gambar Kecil" style="width: 350px; height: 200px">
+                                            </td>
+                                            <td><?php echo $kapasitas; ?></td>
+                                            <td><?php echo $kategori; ?></td>
+                                            <td><?php echo $fasilitas; ?></td>
+                                        </tr>
+                                        <?php
+                                        $count++;
+                                    }
+                                } else {
+                                    echo "<tr><td colspan='13'>Belum ada ruangan yang tersedia</td></tr>";
+                                }
+                                $conn->close();
+                                ?>
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
                 </div>
-            </div>
-            <!-- Recent Sales End -->
 
 
             <!-- Widgets Start -->
