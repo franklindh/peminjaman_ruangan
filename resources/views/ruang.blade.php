@@ -17,8 +17,9 @@
                     <tr>
                         <td style="width: 25%;">
                             <span><b>{{ $r->nama_ruang }}</b></span>
-                            <img src="{{ asset('storage/gambar/' . $r->gambar) }}" alt="Gambar Kecil"
-                                style="width: 100px; height: 100px;">
+                        </td>
+                        <td>
+                            <img src="{{ asset($r->gambar) }}" alt="Gambar Kecil" style="width: 300px; height: 200px">
                         </td>
                         <td>{{ $r->kapasitas }}</td>
                         <td>{{ $r->fasilitas }}</td>
