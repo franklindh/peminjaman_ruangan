@@ -5,6 +5,7 @@
             <thead>
                 <tr>
                     <th>Nama Ruang</th>
+                    <th>Gambar</th>
                     <th>Kapasitas</th>
                     <th>Fasilitas</th>
                     <th>Kategori</th>
@@ -14,9 +15,11 @@
             <tbody>
                 @foreach ($ruang as $r)
                     <tr>
-                        <td style="width: 40%;">
+                        <td style="width: 25%;">
                             <span><b>{{ $r->nama_ruang }}</b></span>
-                            <img src="{{ asset('storage/gambar/' . $r->gambar) }}" alt="Gambar Kecil" style="width: 100px; height: 100px;">
+                        </td>
+                        <td>
+                            <img src="{{ asset($r->gambar) }}" alt="Gambar Kecil" style="width: 200px; height: 200px">
                         </td>
                         <td>{{ $r->kapasitas }}</td>
                         <td>{{ $r->fasilitas }}</td>
