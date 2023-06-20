@@ -38,6 +38,11 @@ class HomeController extends Controller
         $ruang = Ruang::all();
         return view('landingSeminar', ['ruang' => $ruang]);
     }
+    public function homePameran()
+    {
+        $ruang = Ruang::all();
+        return view('landingPameran', ['ruang' => $ruang]);
+    }
 
     public function ruang()
     {
@@ -144,6 +149,54 @@ class HomeController extends Controller
             'waktumulai' => $request->waktumulai,
             'waktuselesai' => $request->waktuselesai,
             'keperluan' => 'Seminar',
+            'tujuan' => $request->tujuan,
+            'email' => $user->email,
+            'nohp' => $request->nohp,
+            'id_user' => $user->id,
+            'id_ruang' => $request->ruang,
+            'status' => 'belum disetujui'
+        ];
+
+        PinjamRuang::create($pinjam);
+
+        return redirect()->back()->with('success', 'Peminjaman ruang untuk pameran berhasil dilakukan.');
+    }
+    public function pinjamPameran(Request $request)
+    {
+        $request->validate([
+            'tglmulai' => 'required',
+            'tglselesai' => 'required',
+            'waktumulai' => 'required',
+            'waktuselesai' => 'required',
+            'tujuan' => 'required',
+            'nohp' => 'required',
+            'ruang' => 'required',
+        ]);
+
+        $user = Auth::user();
+
+        $previousBooking = PinjamRuang::where('id_user', $user->id)
+            ->where('tanggalmulai', $request->tglmulai)
+            ->latest()
+            ->first();
+
+        if ($previousBooking) {
+            $selesaiSebelumnya = Carbon::parse($previousBooking->tanggalselesai . ' ' . $previousBooking->waktuselesai);
+            $mulaiSekarang = Carbon::parse($request->tglmulai . ' ' . $request->waktumulai);
+            $minimumTimeGap = $selesaiSebelumnya->addHour(); // Menambahkan 1 jam ke waktu selesai sebelumnya
+
+            if ($mulaiSekarang->lt($minimumTimeGap)) {
+                return redirect()->back()->with('error', 'Anda harus menunggu minimal 1 jam setelah peminjaman sebelumnya selesai.');
+            }
+        }
+
+        $pinjam = [
+            'nama' => $user->name,
+            'tanggalmulai' => $request->tglmulai,
+            'tanggalselesai' => $request->tglselesai,
+            'waktumulai' => $request->waktumulai,
+            'waktuselesai' => $request->waktuselesai,
+            'keperluan' => 'Pameran',
             'tujuan' => $request->tujuan,
             'email' => $user->email,
             'nohp' => $request->nohp,

@@ -51,6 +51,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', [HomeController::class, 'home'])->name('user.home');
     Route::get('/kuliah', [HomeController::class, 'homeKuliah'])->name('kuliah.view');
     Route::get('/seminar', [HomeController::class, 'homeSeminar'])->name('seminar.view');
+    Route::get('/pameran', [HomeController::class, 'homePameran'])->name('pameran.view');
 
     Route::get('/cek', [HomeController::class, 'cek'])->name('user.cek');
     Route::get('/ruang', [HomeController::class, 'ruang'])->name('user.ruang');
@@ -61,6 +62,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/pinjam', [HomeController::class, 'pinjam'])->name('pinjam');
     Route::post('/kuliah/pinjam', [HomeController::class, 'pinjamKuliah'])->name('pinjam.kuliah');
     Route::post('/seminar/pinjam', [HomeController::class, 'pinjamSeminar'])->name('pinjam.seminar');
+    Route::post('/pameran/pinjam', [HomeController::class, 'pinjamPameran'])->name('pinjam.pameran');
 
 
 

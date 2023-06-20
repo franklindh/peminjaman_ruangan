@@ -20,7 +20,7 @@
                     </div>
                 </div>
             </a>
-            <a href="">
+            <a href="{{ route('pameran.view') }}">
                 <div class="card" style="width: 18rem; margin-right: 24px;">
                     <div class="card-body">
                         <h2>Pameran</h2>

@@ -68,7 +68,8 @@
                             class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <a href="{{ url('/admin/validasi') }}" class="nav-item nav-link"><i
                             class="fa fa-keyboard me-2"></i>Validasi</a>
-                    <a href="{{ url('/admin/setupadmin') }}" class="nav-item nav-link"><i class="fa fa-user me-2"></i>Setup</a>
+                    <a href="{{ url('/admin/setupadmin') }}" class="nav-item nav-link"><i
+                            class="fa fa-user me-2"></i>Setup</a>
 
                 </div>
             </nav>
@@ -99,26 +100,26 @@
             <!-- Informasi Peminjaman Ruang Start -->
             <div class="container-fluid pt-3 px-3">
                 <div class="bg-light text-center rounded p-3">
-                        <div class="d-flex align-items-center justify-content-between mb-4">
-                            <h6 class="mb-0">Informasi Peminjaman Ruang</h6>
-                        </div>
-                        
-                        <div class="table-responsive">
-                            <table class="table text-start align-middle table-bordered table-hover mb-0">
-                                <thead>
-                                    <tr class="text-dark">
-                                        <th scope="col">Total Ruang yang telah divalidasi</th>
-                                        <th scope="col">Total Ruang yang belum divalidasi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <td> {{ $sudahDisetujuiCount }}</td>
-                                    <td> {{ $belumDisetujuiCount }}</td>
-                                </tbody>
-                            </table>
-                        </div>
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="mb-0">Informasi Peminjaman Ruang</h6>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                            <thead>
+                                <tr class="text-dark">
+                                    <th scope="col">Total Ruang yang telah divalidasi</th>
+                                    <th scope="col">Total Ruang yang belum divalidasi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <td> {{ $sudahDisetujuiCount }}</td>
+                                <td> {{ $belumDisetujuiCount }}</td>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
+            </div>
 
 
             <!-- Sale & Revenue Start -->
@@ -137,7 +138,7 @@
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <h6 class="mb-0">Detail Permintaan Peminjaman</h6>
                     </div>
-                    
+
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover mb-0">
                             <thead>
@@ -162,7 +163,7 @@
                                 $servername = "localhost";
                                 $username = "root";
                                 $password = "";
-                                $dbname = "test";
+                                $dbname = "test2";
 
                                 $conn = new mysqli($servername, $username, $password, $dbname);
                                 if ($conn->connect_error) {
@@ -189,21 +190,21 @@
                                         $status= $row["status"];
 
                                         ?>
-                                        <tr>
-                                            <td><?php echo $count; ?></td>
-                                            <td><?php echo $nama; ?></td>
-                                            <td><?php echo $id_ruang; ?></td>
-                                            <td><?php echo $tanggalmulai; ?></td>
-                                            <td><?php echo $tanggalselesai; ?></td>
-                                            <td><?php echo $waktumulai; ?></td>
-                                            <td><?php echo $waktuselesai; ?></td>
-                                            <td><?php echo $keperluan; ?></td>
-                                            <td><?php echo $tujuan; ?></td>
-                                            <td><?php echo $email; ?></td>
-                                            <td><?php echo $nohp; ?></td>
-                                            <td><?php echo $status; ?></td>
-                                        </tr>
-                                        <?php
+                                <tr>
+                                    <td><?php echo $count; ?></td>
+                                    <td><?php echo $nama; ?></td>
+                                    <td><?php echo $id_ruang; ?></td>
+                                    <td><?php echo $tanggalmulai; ?></td>
+                                    <td><?php echo $tanggalselesai; ?></td>
+                                    <td><?php echo $waktumulai; ?></td>
+                                    <td><?php echo $waktuselesai; ?></td>
+                                    <td><?php echo $keperluan; ?></td>
+                                    <td><?php echo $tujuan; ?></td>
+                                    <td><?php echo $email; ?></td>
+                                    <td><?php echo $nohp; ?></td>
+                                    <td><?php echo $status; ?></td>
+                                </tr>
+                                <?php
                                         $count++;
                                     }
                                 } else {
@@ -211,12 +212,12 @@
                                 }
                                 $conn->close();
                                 ?>
-                                </tbody>
-                            </table>
-                        </div>
-
+                            </tbody>
+                        </table>
                     </div>
+
                 </div>
+            </div>
 
             <!-- Detail Ruangan Start -->
             <div class="container-fluid pt-3 px-3">
@@ -224,7 +225,7 @@
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <h6 class="mb-0">Detail Ruangan</h6>
                     </div>
-                    
+
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover mb-0">
                             <thead>
@@ -242,7 +243,7 @@
                                 $servername = "localhost";
                                 $username = "root";
                                 $password = "";
-                                $dbname = "test";
+                                $dbname = "test2";
 
                                 $conn = new mysqli($servername, $username, $password, $dbname);
                                 if ($conn->connect_error) {
@@ -261,16 +262,17 @@
                                         $kategori = $row["kategori"];
                                         $fasilitas = $row["fasilitas"];
                                         ?>
-                                        <tr>
-                                            <td><?php echo $nama_ruang; ?></td>
-                                            <td>
-                                                <img src="{{ asset($gambar) }}" alt="Gambar Kecil" style="width: 350px; height: 200px">
-                                            </td>
-                                            <td><?php echo $kapasitas; ?></td>
-                                            <td><?php echo $kategori; ?></td>
-                                            <td><?php echo $fasilitas; ?></td>
-                                        </tr>
-                                        <?php
+                                <tr>
+                                    <td><?php echo $nama_ruang; ?></td>
+                                    <td>
+                                        <img src="{{ asset($gambar) }}" alt="Gambar Kecil"
+                                            style="width: 350px; height: 200px">
+                                    </td>
+                                    <td><?php echo $kapasitas; ?></td>
+                                    <td><?php echo $kategori; ?></td>
+                                    <td><?php echo $fasilitas; ?></td>
+                                </tr>
+                                <?php
                                         $count++;
                                     }
                                 } else {
@@ -278,12 +280,12 @@
                                 }
                                 $conn->close();
                                 ?>
-                                </tbody>
-                            </table>
-                        </div>
-
+                            </tbody>
+                        </table>
                     </div>
+
                 </div>
+            </div>
 
 
             <!-- Widgets Start -->
