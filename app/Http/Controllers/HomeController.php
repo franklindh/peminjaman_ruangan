@@ -9,8 +9,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -19,24 +21,22 @@ class HomeController extends Controller
         $user = Auth::user();
         $roles = $user->role;
 
-        if($roles=="user"){
-            // $ruang = Ruang::where('id', function ($query) {
-            //             $query->select('id_ruang')
-            //                 ->from('pinjamruang');
-            //         })->get();
+        if ($roles == "user") {
             $ruang = Ruang::all();
-                    return view('landing', ['ruang' => $ruang]);
-        }elseif($roles=="admin"){
+            return view('index', ['ruang' => $ruang]);
+        } elseif ($roles == "admin") {
             return redirect()->route('admin.home');
-
         }
-        // $ruang = Ruang::whereNotIn('id', function ($query) {
-        //     $query->select('id_ruang')
-        //         ->from('pinjamruang')
-        //         ->where('status', '!=', 'belum disetujui')
-        //         ->orwhere('status', '!=', 'disetujui');
-        // })->get();
-        // return view('landing', ['ruang' => $ruang]);
+    }
+    public function homeKuliah()
+    {
+        $ruang = Ruang::all();
+        return view('landingKuliah', ['ruang' => $ruang]);
+    }
+    public function homeSeminar()
+    {
+        $ruang = Ruang::all();
+        return view('landingSeminar', ['ruang' => $ruang]);
     }
 
     public function ruang()
@@ -74,94 +74,23 @@ class HomeController extends Controller
         return view('kontak');
     }
 
-    // YANG LAMANYA
-
-    public function pinjam(Request $request)
+    public function pinjamKuliah(Request $request)
     {
-        $validator = Validator::make($request->all(), 
-            [
-                'tglmulai' => 'required|date',
-                'tglselesai' => [
-                    'required',
-                    'date',
-                    function ($attribute, $value, $fail) use ($request) {
-                        $startDate = $request->input('tglmulai');
-                        if (strtotime($value) < strtotime($startDate)) {
-                            $fail('Tanggal selesai harus lebih dari tanggal mulai.');
-                        }
-                    }
-            ],
-            'nama' => 'required',
+        $request->validate([
+            'tglmulai' => 'required',
+            'tglselesai' => 'required',
             'waktumulai' => 'required',
-            'waktuselesai' => [
-                'required',
-                'date_format:H:i', // Format waktu (HH:mm)
-                function ($attribute, $value, $fail) use ($request) {
-                    $startTime = $request->input('waktumulai');
-                    $endTime = $request->input('waktuselesai');
-                    $startDate = $request->input('tglmulai');
-                    $endDate = $request->input('tglselesai');
-    
-                    if (strtotime($endDate) == strtotime($startDate) && strtotime($value) <= strtotime($startTime)) {
-                        $fail('Waktu selesai harus lebih besar dari waktu mulai.');
-                    } elseif (strtotime($endDate) > strtotime($startDate) && strtotime($value) <= strtotime('00:00')) {
-                        $fail('Waktu selesai harus lebih besar dari waktu mulai.');
-                    } elseif (strtotime($endDate) == strtotime($startDate) && strtotime($value) <= strtotime($startTime)) {
-                        $fail('Waktu selesai harus lebih besar dari waktu mulai.');
-                    }
-                },
-            ],
-            'pilihruang' => [
-                'required',
-                function ($attribute, $value, $fail) use ($request) {
-                    $startDate = $request->tglmulai;
-                    $endDate = $request->tglselesai;
-    
-                    $existingBooking = PinjamRuang::where('id_ruang', $value)
-                        ->where(function ($query) use ($startDate, $endDate) {
-                            $query->where(function ($query) use ($startDate, $endDate) {
-                                $query->where('tanggalmulai', '>=', $startDate)
-                                    ->where('tanggalmulai', '<=', $endDate);
-                            })
-                            ->orWhere(function ($query) use ($startDate, $endDate) {
-                                $query->where('tanggalselesai', '>=', $startDate)
-                                    ->where('tanggalselesai', '<=', $endDate);
-                            })
-                            ->orWhere(function ($query) use ($startDate, $endDate) {
-                                $query->where('tanggalmulai', '<=', $startDate)
-                                    ->where('tanggalselesai', '>=', $endDate);
-                            });
-                        })
-                        ->get();
-    
-                    if ($existingBooking) {
-                        $fail('Ruang tersebut sudah dipinjam pada rentang tanggal yang sama oleh user lain.');
-                    }
-                }
-            ],       
+            'waktuselesai' => 'required',
             'keperluan' => 'required',
             'tujuan' => 'required',
-            'nohp' => 'required'
-
+            'nohp' => 'required',
+            'ruang' => 'required',
         ]);
 
-        if ($validator->fails()) {
-            $errors = $validator->errors();
-        
-            if ($errors->has('tglselesai')) {
-                return redirect()->back()->with('error', 'Gagal, Tanggal selesai harus lebih dari tanggal mulai.');
-            } elseif ($errors->has('pilihruang')) {
-                return redirect()->back()->with('error', 'Gagal, Ruang tersebut sudah dipinjam pada rentang tanggal yang sama oleh user lain.');
-            }
-        
-            // Kode ini akan dijalankan jika validasi gagal tetapi tidak ada kesalahan spesifik yang ditangkap
-            return redirect()->back()->with('error', 'Terjadi kesalahan validasi.');
-        }
- 
         $user = Auth::user();
-       
+
         $pinjam = [
-            'nama' => $request->nama,
+            'nama' => $user->name,
             'tanggalmulai' => $request->tglmulai,
             'tanggalselesai' => $request->tglselesai,
             'waktumulai' => $request->waktumulai,
@@ -171,7 +100,7 @@ class HomeController extends Controller
             'email' => $user->email,
             'nohp' => $request->nohp,
             'id_user' => $user->id,
-            'id_ruang' => $request->pilihruang,
+            'id_ruang' => $request->ruang,
             'status' => 'belum disetujui'
         ];
 
@@ -180,5 +109,55 @@ class HomeController extends Controller
         return redirect()->route('user.home')->with('success', 'Ruang berhasil dipinjam');
 
     }
-    
+    public function pinjamSeminar(Request $request)
+    {
+        $request->validate([
+            'tglmulai' => 'required',
+            'waktumulai' => 'required',
+            'waktuselesai' => 'required',
+            'tujuan' => 'required',
+            'nohp' => 'required',
+            'ruang' => 'required',
+        ]);
+
+        $user = Auth::user();
+
+        $previousBooking = PinjamRuang::where('id_user', $user->id)
+            ->where('tanggalmulai', $request->tglmulai)
+            ->latest()
+            ->first();
+
+        if ($previousBooking) {
+            $selesaiSebelumnya = Carbon::parse($previousBooking->tanggalselesai . ' ' . $previousBooking->waktuselesai);
+            $mulaiSekarang = Carbon::parse($request->tglmulai . ' ' . $request->waktumulai);
+            $minimumTimeGap = $selesaiSebelumnya->addHour(); // Menambahkan 1 jam ke waktu selesai sebelumnya
+
+            if ($mulaiSekarang->lt($minimumTimeGap)) {
+                return redirect()->back()->with('error', 'Anda harus menunggu minimal 1 jam setelah peminjaman sebelumnya selesai.');
+            }
+        }
+
+        $pinjam = [
+            'nama' => $user->name,
+            'tanggalmulai' => $request->tglmulai,
+            'tanggalselesai' => $request->tglmulai,
+            'waktumulai' => $request->waktumulai,
+            'waktuselesai' => $request->waktuselesai,
+            'keperluan' => 'Seminar',
+            'tujuan' => $request->tujuan,
+            'email' => $user->email,
+            'nohp' => $request->nohp,
+            'id_user' => $user->id,
+            'id_ruang' => $request->ruang,
+            'status' => 'belum disetujui'
+        ];
+
+        PinjamRuang::create($pinjam);
+
+        return redirect()->back()->with('success', 'Peminjaman ruang untuk pameran berhasil dilakukan.');
+    }
+
+
+
+
 }

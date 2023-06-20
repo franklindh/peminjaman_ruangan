@@ -44,9 +44,14 @@ Route::get('/register', function () {
 Route::post('/register/valid', [AuthController::class, 'register'])->name('register.valid');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
+
+
 Route::middleware(['auth'])->group(function () {
+
     Route::get('/', [HomeController::class, 'home'])->name('user.home');
-    
+    Route::get('/kuliah', [HomeController::class, 'homeKuliah'])->name('kuliah.view');
+    Route::get('/seminar', [HomeController::class, 'homeSeminar'])->name('seminar.view');
+
     Route::get('/cek', [HomeController::class, 'cek'])->name('user.cek');
     Route::get('/ruang', [HomeController::class, 'ruang'])->name('user.ruang');
     Route::get('/kontak', [HomeController::class, 'kontak'])->name('user.kontak');
@@ -54,8 +59,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/batal', [HomeController::class, 'batal'])->name('user.batal');
 
     Route::post('/pinjam', [HomeController::class, 'pinjam'])->name('pinjam');
+    Route::post('/kuliah/pinjam', [HomeController::class, 'pinjamKuliah'])->name('pinjam.kuliah');
+    Route::post('/seminar/pinjam', [HomeController::class, 'pinjamSeminar'])->name('pinjam.seminar');
 
-    
+
 
 });
 
@@ -84,6 +91,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/admin/hapus/{id}', [PeminjamanRuanganController::class, 'hapusPeminjaman'])->name('hapusPeminjaman');
 
-    
+
 
 });

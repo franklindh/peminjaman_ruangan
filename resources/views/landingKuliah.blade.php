@@ -22,28 +22,25 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ route('pinjam') }}">
+            <form action="{{ route('pinjam.kuliah') }}" method="POST">
                 @csrf
-                <h2>Formulir Peminjaman Ruangan</h2>
-                {{-- <div class="form-group">
-                    <label for="nama">Nama:</label>
-                    <input type="text" id="nama" name="nama" required>
-                </div> --}}
                 <div class="form-group">
                     <label for="nohp">Nomor Hp/Whatsapp:</label>
                     <input type="text" inputmode="numeric" pattern="[0-9]*" id="nohp" name="nohp" required>
                 </div>
                 <div class="form-group">
-                    <label for="tglmulai">Tanggal Mulai:</label>
-                    <input type="date" id="tglmulai" name="tglmulai" required>
-                    @error('mulai')
-                        <span>{{ $message }}</span>
-                    @enderror
+                    <label for="hari">Hari Peminjaman:</label>
+                    <select name="hari[]" id="hari" class="form-control" required>
+                        <!-- Menampilkan pilihan hari -->
+                        <option value="senin">Senin</option>
+                        <option value="selasa">Selasa</option>
+                        <option value="rabu">Rabu</option>
+                        <option value="kamis">Kamis</option>
+                        <option value="jumat">Jumat</option>
+                        <!-- tambahkan opsi hari lainnya -->
+                    </select>
                 </div>
-                <div class="form-group">
-                    <label for="tglselesai">Tanggal Selesai:</label>
-                    <input type="date" id="tglselesai" name="tglselesai" required>
-                </div>
+
                 <div class="form-group">
                     <label for="waktumulai">Waktu Mulai:</label>
                     <!-- <input type="time" id="waktumulai" name="waktumulai" required> -->
@@ -54,27 +51,15 @@
                     <!-- <input type="time" id="waktuselesai" name="waktuselesai" required> -->
                     <input type="text" name="waktuselesai" class="timepicker" placeholder="JJ::MM">
                 </div>
+
                 <div class="form-group">
-                    <label for="pilihruang">Ruang:</label>
-                    <select name="ruang" id="pilihruang">
-                        <option value="" disabled selected>Pilih Ruang</option>
+                    <label for="ruang_id">Ruang:</label>
+                    <select name="ruang_id" id="ruang_id" class="form-control" required>
+                        <!-- Menampilkan pilihan ruang dari database -->
                         @foreach ($ruang as $r)
                             <option value="{{ $r->id }}">{{ $r->nama_ruang }}</option>
                         @endforeach
                     </select>
-                </div>
-                <div class="form-group">
-                    <label for="keperluan">Keperluan</label>
-                    <select name="keperluan" id="keperluan" required>
-                        <option value="" disabled selected>Pilih Keperluan</option>
-                        <option value="Akademik">Akademik</option>
-                        <option value="Seminar">Seminar</option>
-                        <option value="Persekutuan">Persekutuan</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="tujuan">Tujuan</label>
-                    <textarea name="tujuan" id="" cols="30" rows="10" required></textarea>
                 </div>
                 <div class="form-group">
                     <div class="tombolform">
@@ -82,6 +67,7 @@
                     </div>
                 </div>
             </form>
+
         </div>
         <div class="form-container">
             <h2>Aturan Peminjaman Ruangan</h2>

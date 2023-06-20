@@ -33,16 +33,10 @@ class AuthController extends Controller
             'password' => Hash::make($request->input('password')),
         ]);
         return redirect()->route('login')->with('success', 'Registrasi berhasil!');
-
-
-
-
-
     }
-
     public function login(Request $request)
     {
-        
+
         $validatedData = $request->validate([
             'email' => 'required|email',
             'password' => 'required|min:6',

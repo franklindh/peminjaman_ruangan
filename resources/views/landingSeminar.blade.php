@@ -22,9 +22,9 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ route('pinjam') }}">
+            <form method="POST" action="{{ route('pinjam.seminar') }}">
                 @csrf
-                <h2>Formulir Peminjaman Ruangan</h2>
+                {{-- <h2>Formulir Peminjaman Ruangan</h2> --}}
                 {{-- <div class="form-group">
                     <label for="nama">Nama:</label>
                     <input type="text" id="nama" name="nama" required>
@@ -34,15 +34,8 @@
                     <input type="text" inputmode="numeric" pattern="[0-9]*" id="nohp" name="nohp" required>
                 </div>
                 <div class="form-group">
-                    <label for="tglmulai">Tanggal Mulai:</label>
+                    <label for="tglmulai">Tanggal:</label>
                     <input type="date" id="tglmulai" name="tglmulai" required>
-                    @error('mulai')
-                        <span>{{ $message }}</span>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="tglselesai">Tanggal Selesai:</label>
-                    <input type="date" id="tglselesai" name="tglselesai" required>
                 </div>
                 <div class="form-group">
                     <label for="waktumulai">Waktu Mulai:</label>
@@ -61,15 +54,6 @@
                         @foreach ($ruang as $r)
                             <option value="{{ $r->id }}">{{ $r->nama_ruang }}</option>
                         @endforeach
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="keperluan">Keperluan</label>
-                    <select name="keperluan" id="keperluan" required>
-                        <option value="" disabled selected>Pilih Keperluan</option>
-                        <option value="Akademik">Akademik</option>
-                        <option value="Seminar">Seminar</option>
-                        <option value="Persekutuan">Persekutuan</option>
                     </select>
                 </div>
                 <div class="form-group">
